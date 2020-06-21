@@ -19,8 +19,8 @@ class SimpleDeasciifierTest(unittest.TestCase):
             word = fsm.getDictionary().getWordWithIndex(i)
             count = 0
             for j in range(len(word.getName())):
-                if word.getName()[j:j] == 'ç' or word.getName()[j:j] == 'ö' or word.getName()[j:j] == 'ğ' or \
-                        word.getName()[j:j] == 'ü' or word.getName()[j:j] == 'ş' or word.getName()[j:j] == 'ı':
+                if word.getName()[j] == 'ç' or word.getName()[j] == 'ö' or word.getName()[j] == 'ğ' or \
+                        word.getName()[j] == 'ü' or word.getName()[j] == 'ş' or word.getName()[j] == 'ı':
                     count = count + 1
             if (count > 0 and not word.getName().endswith("fulü") and (word.isNominal() or word.isAdjective() or
                                                                        word.isAdverb() or word.isVerb())):
