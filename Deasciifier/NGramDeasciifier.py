@@ -9,8 +9,9 @@ from Deasciifier.SimpleDeasciifier import SimpleDeasciifier
 class NGramDeasciifier(SimpleDeasciifier):
 
     __nGram: NGram
+    __rootNgram: bool
 
-    def __init__(self, fsm: FsmMorphologicalAnalyzer, nGram: NGram):
+    def __init__(self, fsm: FsmMorphologicalAnalyzer, nGram: NGram, rootNGram: bool):
         """
         A constructor of NGramDeasciifier class which takes an FsmMorphologicalAnalyzer and an NGram
         as inputs. It first calls it super class SimpleDeasciifier with given FsmMorphologicalAnalyzer input
@@ -25,6 +26,7 @@ class NGramDeasciifier(SimpleDeasciifier):
         """
         super().__init__(fsm)
         self.__nGram = nGram
+        self.__rootNgram = rootNGram
 
     def checkAnalysisAndSetRoot(self, sentence: Sentence, index: int) -> Word:
         """
@@ -37,7 +39,10 @@ class NGramDeasciifier(SimpleDeasciifier):
         if index < sentence.wordCount():
             fsmParses = self.fsm.morphologicalAnalysis(sentence.getWord(index).getName())
             if fsmParses.size() != 0:
-                return fsmParses.getParseWithLongestRootWord().getWord()
+                if self.__rootNgram:
+                    return fsmParses.getParseWithLongestRootWord().getWord()
+                else:
+                    return sentence.getWord(index)
         return None
 
     def deasciify(self, sentence: Sentence) -> Sentence:
@@ -73,7 +78,10 @@ class NGramDeasciifier(SimpleDeasciifier):
                 bestProbability = 0
                 for candidate in candidates:
                     fsmParses = self.fsm.morphologicalAnalysis(candidate)
-                    root = fsmParses.getParseWithLongestRootWord().getWord()
+                    if self.__rootNgram:
+                        root = fsmParses.getParseWithLongestRootWord().getWord()
+                    else:
+                        root = Word(candidate)
                     if previousRoot is not None:
                         previousProbability = self.__nGram.getProbability(previousRoot.getName(), root.getName())
                     else:

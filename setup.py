@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='NlpToolkit-Deasciifier',
-    version='1.0.11',
+    version='1.0.12',
     packages=['Deasciifier'],
     url='https://github.com/olcaytaner/TurkishDeasciifier-Py',
     license='',
