@@ -10,6 +10,7 @@ class NGramDeasciifier(SimpleDeasciifier):
 
     __nGram: NGram
     __rootNgram: bool
+    __threshold: float
 
     def __init__(self, fsm: FsmMorphologicalAnalyzer, nGram: NGram, rootNGram: bool):
         """
@@ -27,6 +28,7 @@ class NGramDeasciifier(SimpleDeasciifier):
         super().__init__(fsm)
         self.__nGram = nGram
         self.__rootNgram = rootNGram
+        self.__threshold = 0.0
 
     def checkAnalysisAndSetRoot(self, sentence: Sentence, index: int) -> Word:
         """
@@ -44,6 +46,9 @@ class NGramDeasciifier(SimpleDeasciifier):
                 else:
                     return sentence.getWord(index)
         return None
+
+    def setThreshold(self, threshold: float):
+        self.__threshold = threshold
 
     def deasciify(self, sentence: Sentence) -> Sentence:
         """
@@ -75,7 +80,7 @@ class NGramDeasciifier(SimpleDeasciifier):
                 candidates = self.candidateList(word)
                 bestCandidate = word.getName()
                 bestRoot = word
-                bestProbability = 0
+                bestProbability = self.__threshold
                 for candidate in candidates:
                     fsmParses = self.fsm.morphologicalAnalysis(candidate)
                     if self.__rootNgram:
