@@ -4,10 +4,10 @@ setup(
     name='NlpToolkit-Deasciifier',
     version='1.0.13',
     packages=['Deasciifier'],
-    url='https://github.com/olcaytaner/TurkishDeasciifier-Py',
+    url='https://github.com/StarlangSoftware/TurkishDeasciifier-Py',
     license='',
-    author='olcay',
-    author_email='olcaytaner@isikun.edu.tr',
+    author='olcaytaner',
+    author_email='olcay.yildiz@ozyegin.edu.tr',
     description='Turkish Asciifier/Deasciifier Library',
     install_requires=['NlpToolkit-MorphologicalAnalysis', 'NlpToolkit-NGram']
 )
