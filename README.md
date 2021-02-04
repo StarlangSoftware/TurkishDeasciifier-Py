@@ -1,7 +1,7 @@
 For Developers
 ============
 
-You can also see [Java](https://github.com/starlangsoftware/TurkishDeasciifier), [C++](https://github.com/starlangsoftware/TurkishDeasciifier-CPP), or [C#](https://github.com/starlangsoftware/TurkishDeasciifier-CS) repository.
+You can also see [Cython](https://github.com/starlangsoftware/TurkishDeasciifier-Cy), [Java](https://github.com/starlangsoftware/TurkishDeasciifier), [C++](https://github.com/starlangsoftware/TurkishDeasciifier-CPP), or [C#](https://github.com/starlangsoftware/TurkishDeasciifier-CS) repository.
 
 ## Requirements
 
