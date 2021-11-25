@@ -13,8 +13,7 @@ from Deasciifier.SimpleAsciifier import SimpleAsciifier
 class NGramDeasciifierTest(unittest.TestCase):
 
     def test_Deasciify(self):
-        fsm = FsmMorphologicalAnalyzer("../turkish_dictionary.txt", "../turkish_misspellings.txt",
-                                       "../turkish_finite_state_machine.xml")
+        fsm = FsmMorphologicalAnalyzer()
         nGram = NGram("../ngram.txt")
         nGram.calculateNGramProbabilitiesSimple(NoSmoothing())
         nGramDeasciifier = NGramDeasciifier(fsm, nGram, True)
@@ -30,8 +29,7 @@ class NGramDeasciifierTest(unittest.TestCase):
                         self.assertEqual(sentence.getWord(j).getName(), deasciified.getWord(1).getName())
 
     def test_Deasciify2(self):
-        fsm = FsmMorphologicalAnalyzer("../turkish_dictionary.txt", "../turkish_misspellings.txt",
-                                       "../turkish_finite_state_machine.xml")
+        fsm = FsmMorphologicalAnalyzer()
         nGram = NGram("../ngram.txt")
         nGram.calculateNGramProbabilitiesSimple(NoSmoothing())
         nGramDeasciifier = NGramDeasciifier(fsm, nGram, False)

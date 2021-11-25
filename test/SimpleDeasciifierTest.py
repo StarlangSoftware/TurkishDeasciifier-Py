@@ -11,8 +11,7 @@ from Deasciifier.SimpleDeasciifier import SimpleDeasciifier
 class SimpleDeasciifierTest(unittest.TestCase):
 
     def test_Deasciify(self):
-        fsm = FsmMorphologicalAnalyzer("../turkish_dictionary.txt", "../turkish_misspellings.txt",
-                                       "../turkish_finite_state_machine.xml")
+        fsm = FsmMorphologicalAnalyzer()
         simpleDeasciifier = SimpleDeasciifier(fsm)
         simpleAsciifier = SimpleAsciifier()
         for i in range(fsm.getDictionary().size()):
