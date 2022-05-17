@@ -2,11 +2,11 @@ from setuptools import setup
 
 from pathlib import Path
 this_directory = Path(__file__).parent
-long_description = (this_directory / "README.md").read_text()
+long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
     name='NlpToolkit-Deasciifier',
-    version='1.0.14',
+    version='1.0.15',
     packages=['Deasciifier'],
     url='https://github.com/StarlangSoftware/TurkishDeasciifier-Py',
     license='',
