@@ -3,6 +3,7 @@ import unittest
 from Corpus.Corpus import Corpus
 from Corpus.Sentence import Sentence
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
+from NGram.LaplaceSmoothing import LaplaceSmoothing
 from NGram.NGram import NGram
 from NGram.NoSmoothing import NoSmoothing
 
@@ -36,6 +37,15 @@ class NGramDeasciifierTest(unittest.TestCase):
         self.assertEqual("noter hakkında", nGramDeasciifier.deasciify(Sentence("noter hakkinda")).__str__())
         self.assertEqual("sandık medrese", nGramDeasciifier.deasciify(Sentence("sandik medrese")).__str__())
         self.assertEqual("kuran'ı karşılıklı", nGramDeasciifier.deasciify(Sentence("kuran'ı karsilikli")).__str__())
+
+    def test_Deasciify3(self):
+        fsm = FsmMorphologicalAnalyzer()
+        nGram = NGram("../ngram.txt")
+        nGram.calculateNGramProbabilitiesSimple(LaplaceSmoothing())
+        nGramDeasciifier = NGramDeasciifier(fsm, nGram, True)
+        self.assertEqual("dün akşam yeni aldığımız çam ağacını süsledik", nGramDeasciifier.deasciify(Sentence("dün aksam yenı aldıgımız cam agacini susledık")).__str__())
+        self.assertEqual("ünlü sanatçı tartışmalı konu hakkında demeç vermekten kaçındı", nGramDeasciifier.deasciify(Sentence("unlu sanatci tartismali konu hakkinda demec vermekten kacindi")).__str__())
+        self.assertEqual("köylü de durumdan oldukça şikayetçiydi", nGramDeasciifier.deasciify(Sentence("koylu de durumdan oldukca şikayetciydi")).__str__())
 
 
 if __name__ == '__main__':

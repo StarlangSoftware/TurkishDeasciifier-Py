@@ -6,8 +6,9 @@ long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
     name='NlpToolkit-Deasciifier',
-    version='1.0.15',
+    version='1.0.16',
     packages=['Deasciifier'],
+    package_data={'Deasciifier.data': ['*.txt']},
     url='https://github.com/StarlangSoftware/TurkishDeasciifier-Py',
     license='',
     author='olcaytaner',
