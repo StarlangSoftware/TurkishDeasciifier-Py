@@ -71,6 +71,6 @@ class SimpleAsciifier(Asciifier):
         result = Sentence()
         for i in range(sentence.wordCount()):
             word = sentence.getWord(i)
-            newWord = Word(self.asciifyWord(word))
-            result.addWord(newWord)
+            new_word = Word(self.asciifyWord(word))
+            result.addWord(new_word)
         return result

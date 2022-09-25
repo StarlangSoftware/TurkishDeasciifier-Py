@@ -23,7 +23,10 @@ class SimpleDeasciifier(Deasciifier):
         """
         self.fsm = fsm
 
-    def __generateCandidateList(self, candidates: list, word: str, index: int):
+    def __generateCandidateList(self,
+                                candidates: list,
+                                word: str,
+                                index: int):
         """
         The generateCandidateList method takes a list candidates, a str, and an integer index as inputs.
         First, it creates a str which consists of corresponding Latin versions of special Turkish characters. If given
@@ -47,39 +50,41 @@ class SimpleDeasciifier(Deasciifier):
                 size = len(candidates)
                 for i in range(size):
                     if word[index] == "ı":
-                        newChar = "i"
+                        new_char = "i"
                     elif word[index] == "i":
-                        newChar = "ı"
+                        new_char = "ı"
                     elif word[index] == "o":
-                        newChar = "ö"
+                        new_char = "ö"
                     elif word[index] == "u":
-                        newChar = "ü"
+                        new_char = "ü"
                     elif word[index] == "g":
-                        newChar = "ğ"
+                        new_char = "ğ"
                     elif word[index] == "c":
-                        newChar = "ç"
+                        new_char = "ç"
                     elif word[index] == "s":
-                        newChar = "ş"
+                        new_char = "ş"
                     elif word[index] == "I":
-                        newChar = "İ"
+                        new_char = "İ"
                     elif word[index] == "İ":
-                        newChar = "I"
+                        new_char = "I"
                     elif word[index] == "O":
-                        newChar = "Ö"
+                        new_char = "Ö"
                     elif word[index] == "U":
-                        newChar = "Ü"
+                        new_char = "Ü"
                     elif word[index] == "G":
-                        newChar = "Ğ"
+                        new_char = "Ğ"
                     elif word[index] == "C":
-                        newChar = "Ç"
+                        new_char = "Ç"
                     elif word[index] == "S":
-                        newChar = "Ş"
+                        new_char = "Ş"
                     else:
-                        newChar = word[index]
-                    modified = candidates[i][0:index] + newChar + candidates[i][index + 1:]
+                        new_char = word[index]
+                    modified = candidates[i][0:index] + new_char + candidates[i][index + 1:]
                     candidates.append(modified)
             if len(candidates) < 10000:
-                self.__generateCandidateList(candidates, word, index + 1)
+                self.__generateCandidateList(candidates=candidates,
+                                             word=word,
+                                             index=index + 1)
 
     def candidateList(self, word: Word) -> list:
         """
@@ -100,11 +105,13 @@ class SimpleDeasciifier(Deasciifier):
             List candidates.
         """
         candidates = [word.getName()]
-        self.__generateCandidateList(candidates, word.getName(), 0)
+        self.__generateCandidateList(candidates=candidates,
+                                     word=word.getName(),
+                                     index=0)
         i = 0
         while i < len(candidates):
-            fsmParseList = self.fsm.morphologicalAnalysis(candidates[i])
-            if fsmParseList.size() == 0:
+            fsm_parse_list = self.fsm.morphologicalAnalysis(candidates[i])
+            if fsm_parse_list.size() == 0:
                 candidates.pop(i)
                 i = i - 1
             i = i + 1
@@ -132,15 +139,15 @@ class SimpleDeasciifier(Deasciifier):
         result = Sentence()
         for i in range(sentence.wordCount()):
             word = sentence.getWord(i)
-            fsmParseList = self.fsm.morphologicalAnalysis(word.getName())
-            if fsmParseList.size() == 0:
+            fsm_parse_list = self.fsm.morphologicalAnalysis(word.getName())
+            if fsm_parse_list.size() == 0:
                 candidates = self.candidateList(word)
                 if len(candidates) > 0:
-                    randomCandidate = randrange(len(candidates))
-                    newWord = Word(candidates[randomCandidate])
+                    random_candidate = randrange(len(candidates))
+                    new_word = Word(candidates[random_candidate])
                 else:
-                    newWord = word
+                    new_word = word
             else:
-                newWord = word
-            result.addWord(newWord)
+                new_word = word
+            result.addWord(new_word)
         return result
