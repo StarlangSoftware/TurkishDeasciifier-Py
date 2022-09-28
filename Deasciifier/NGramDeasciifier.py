@@ -83,52 +83,45 @@ class NGramDeasciifier(SimpleDeasciifier):
         result = Sentence()
         root = self.checkAnalysisAndSetRoot(sentence, 0)
         next_root = self.checkAnalysisAndSetRoot(sentence, 1)
-        for repeat in range(2):
-            for i in range(sentence.wordCount()):
-                candidates = []
-                is_asciified_same = False
-                word = sentence.getWord(i)
-                if word.getName() in self.__asciified_same:
-                    candidates.append(word.getName())
-                    candidates.append(self.__asciified_same[word.getName()])
-                    is_asciified_same = True
-                if root is None or is_asciified_same:
-                    if not is_asciified_same:
-                        candidates = self.candidateList(word)
-                    best_candidate = word.getName()
-                    best_root = word
-                    best_probability = self.__threshold
-                    for candidate in candidates:
-                        fsm_parses = self.fsm.morphologicalAnalysis(candidate)
-                        if self.__root_n_gram and not is_asciified_same:
-                            root = fsm_parses.getParseWithLongestRootWord().getWord()
-                        else:
-                            root = Word(candidate)
-                        if previous_root is not None:
-                            previous_probability = self.__n_gram.getProbability(previous_root.getName(), root.getName())
-                        else:
-                            previous_probability = 0.0
-                        if next_root is not None:
-                            next_probability = self.__n_gram.getProbability(root.getName(), next_root.getName())
-                        else:
-                            next_probability = 0.0
-                        if max(previous_probability, next_probability) > best_probability:
-                            best_candidate = candidate
-                            best_root = root
-                            best_probability = max(previous_probability, next_probability)
-                    root = best_root
-                    result.addWord(Word(best_candidate))
-                else:
-                    result.addWord(word)
-                previous_root = root
-                root = next_root
-                next_root = self.checkAnalysisAndSetRoot(sentence, i + 2)
-            sentence = result
-            if repeat < 1:
-                result = Sentence()
-                previous_root = None
-                root = self.checkAnalysisAndSetRoot(sentence, 0)
-                next_root = self.checkAnalysisAndSetRoot(sentence, 1)
+        for i in range(sentence.wordCount()):
+            candidates = []
+            is_asciified_same = False
+            word = sentence.getWord(i)
+            if word.getName() in self.__asciified_same:
+                candidates.append(word.getName())
+                candidates.append(self.__asciified_same[word.getName()])
+                is_asciified_same = True
+            if root is None or is_asciified_same:
+                if not is_asciified_same:
+                    candidates = self.candidateList(word)
+                best_candidate = word.getName()
+                best_root = word
+                best_probability = self.__threshold
+                for candidate in candidates:
+                    fsm_parses = self.fsm.morphologicalAnalysis(candidate)
+                    if self.__root_n_gram and not is_asciified_same:
+                        root = fsm_parses.getParseWithLongestRootWord().getWord()
+                    else:
+                        root = Word(candidate)
+                    if previous_root is not None:
+                        previous_probability = self.__n_gram.getProbability(previous_root.getName(), root.getName())
+                    else:
+                        previous_probability = 0.0
+                    if next_root is not None:
+                        next_probability = self.__n_gram.getProbability(root.getName(), next_root.getName())
+                    else:
+                        next_probability = 0.0
+                    if max(previous_probability, next_probability) > best_probability:
+                        best_candidate = candidate
+                        best_root = root
+                        best_probability = max(previous_probability, next_probability)
+                root = best_root
+                result.addWord(Word(best_candidate))
+            else:
+                result.addWord(word)
+            previous_root = root
+            root = next_root
+            next_root = self.checkAnalysisAndSetRoot(sentence, i + 2)
         return result
 
     def loadAsciifiedSameList(self):

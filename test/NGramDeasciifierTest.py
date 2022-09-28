@@ -43,8 +43,8 @@ class NGramDeasciifierTest(unittest.TestCase):
         nGram = NGram("../ngram.txt")
         nGram.calculateNGramProbabilitiesSimple(LaplaceSmoothing())
         nGramDeasciifier = NGramDeasciifier(fsm, nGram, True)
-        self.assertEqual("dün akşam yeni aldığımız çam ağacını süsledik", nGramDeasciifier.deasciify(Sentence("dün aksam yenı aldıgımız cam agacini susledık")).__str__())
-        self.assertEqual("ünlü sanatçı tartışmalı konu hakkında demeç vermekten kaçındı", nGramDeasciifier.deasciify(Sentence("unlu sanatci tartismali konu hakkinda demec vermekten kacindi")).__str__())
+        self.assertEqual("dün akşam yeni aldığımız çam ağacını süsledik", nGramDeasciifier.deasciify(Sentence("dün aksam yenı aldıgımız cam ağacını susledık")).__str__())
+        self.assertEqual("ünlü sanatçı tartışmalı konu hakkında demeç vermekten kaçındı", nGramDeasciifier.deasciify(Sentence("unlu sanatçı tartismali konu hakkinda demec vermekten kacindi")).__str__())
         self.assertEqual("köylü de durumdan oldukça şikayetçiydi", nGramDeasciifier.deasciify(Sentence("koylu de durumdan oldukca şikayetciydi")).__str__())
 
 
