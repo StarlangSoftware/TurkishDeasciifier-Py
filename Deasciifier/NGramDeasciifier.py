@@ -111,7 +111,7 @@ class NGramDeasciifier(SimpleDeasciifier):
                         next_probability = self.__n_gram.getProbability(root.getName(), next_root.getName())
                     else:
                         next_probability = 0.0
-                    if max(previous_probability, next_probability) > best_probability:
+                    if max(previous_probability, next_probability) > best_probability or len(candidates) == 1:
                         best_candidate = candidate
                         best_root = root
                         best_probability = max(previous_probability, next_probability)
