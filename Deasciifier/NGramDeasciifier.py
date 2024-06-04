@@ -57,6 +57,10 @@ class NGramDeasciifier(SimpleDeasciifier):
         return None
 
     def setThreshold(self, threshold: float):
+        """
+        Sets minimum N-Gram probability threshold for replacement candidates.
+        :param threshold: New N-Gram probability threshold
+        """
         self.__threshold = threshold
 
     def deasciify(self, sentence: Sentence) -> Sentence:
@@ -125,6 +129,10 @@ class NGramDeasciifier(SimpleDeasciifier):
         return result
 
     def loadAsciifiedSameList(self):
+        """
+        Loads asciified same word list. Asciified same words are the words whose asciified versions are also
+        valid Turkish words. For example, ascified version of 'ekşi' is 'eksi', ascified version of 'fön' is 'fon'.
+        """
         input_file = open(pkg_resources.resource_filename(__name__, 'data/asciified-same.txt'), "r", encoding="utf8")
         lines = input_file.readlines()
         for line in lines:
