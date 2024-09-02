@@ -46,7 +46,7 @@ class SimpleDeasciifier(Deasciifier):
         """
         s = "ıiougcsİIOUGCS"
         if index < len(word):
-            if s.index(word[index:index]) != -1:
+            if s.find(word[index:index+1]) != -1:
                 size = len(candidates)
                 for i in range(size):
                     if word[index] == "ı":
