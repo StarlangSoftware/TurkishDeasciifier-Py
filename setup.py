@@ -5,8 +5,8 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
-    name='NlpToolkit-Deasciifier',
-    version='1.0.19',
+    name='nlptoolkit_deasciifier',
+    version='1.0.20',
     packages=['Deasciifier'],
     package_data={'Deasciifier.data': ['*.txt']},
     url='https://github.com/StarlangSoftware/TurkishDeasciifier-Py',
